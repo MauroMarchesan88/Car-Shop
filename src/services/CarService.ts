@@ -1,5 +1,5 @@
 import { IModel } from '../interfaces/IModel';
-import { ICar } from '../interfaces/ICar';
+import { CarWtihVehicleSchema, ICar } from '../interfaces/ICar';
 import IService from '../interfaces/IService';
 
 export default class CarService implements IService<ICar> {
@@ -13,7 +13,12 @@ export default class CarService implements IService<ICar> {
   }
 
   public async create(_obj: ICar): Promise<ICar> {
-    return this._car.create(_obj);
+    const parsed = CarWtihVehicleSchema.safeParse(_obj);
+    if (!parsed.success) {
+      throw parsed.error;
+    }
+    const result = await this._car.create(_obj);
+    return result;
   }
 
   public async readOne(_id: string): Promise<ICar | null> {
