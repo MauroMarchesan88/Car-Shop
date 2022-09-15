@@ -26,7 +26,12 @@ export default class CarService implements IService<ICar> {
   }
 
   public async update(_id: string, _obj: ICar): Promise<ICar | null> {
-    return this._car.update(_id, _obj);
+    const parsed = CarWtihVehicleSchema.safeParse(_obj);
+    if (!parsed.success) {
+      throw parsed.error;
+    }
+    const result = await this._car.update(_id, _obj);
+    return result;
   }
 
   public async delete(_id: string): Promise<ICar | null> {
