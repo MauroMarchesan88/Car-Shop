@@ -19,4 +19,14 @@ const carMockWithId:ICar & { _id:string } = {
   seatsQty: 4,
 };
 
-export { carMock, carMockWithId };
+const deletedMock:ICar & { deletedCount: number } = {
+  model: 'Focus',
+  color: 'Azul',
+  year: 2015,
+  buyValue: 50000,
+  doorsQty: 4,
+  seatsQty: 4,
+  deletedCount: 1,
+};
+
+export { carMock, carMockWithId, deletedMock };

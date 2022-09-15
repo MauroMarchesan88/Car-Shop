@@ -3,7 +3,7 @@ import chai from 'chai';
 const { expect } = chai;
 import CarModel from '../../../models/CarModel';
 import CarService from '../../../services/CarService';
-import { carMock, carMockWithId } from '../mocks/carMock';
+import { carMock, carMockWithId, deletedMock } from '../mocks/carMock';
 
 describe('Teste de camada Service', () => {
   const modelTest = new CarModel();
@@ -11,6 +11,10 @@ describe('Teste de camada Service', () => {
 
   before(async () => {
     sinon.stub(modelTest, 'create').resolves(carMockWithId);
+    sinon.stub(modelTest, 'read').resolves([carMockWithId]);
+    sinon.stub(modelTest, 'readOne').resolves(carMockWithId);
+    sinon.stub(modelTest, 'delete').resolves(deletedMock);
+
   });
 
   after(()=>{
@@ -21,6 +25,24 @@ describe('Teste de camada Service', () => {
     const result = await serviceTest.create(carMock);
 
     expect(result).to.be.equal(carMockWithId)
+  });
+
+  it('Verifica função read', async () => {
+    const result = await serviceTest.read();
+
+    expect(result).to.be.deep.equal([carMockWithId])
+  });
+
+  it('Verifica função readOne', async () => {
+    const result = await serviceTest.readOne('62cf1fc6498565d94eba52cd');
+
+    expect(result).to.be.equal(carMockWithId)
+  });
+
+  it('Verifica função delete', async () => {
+    const result = await serviceTest.delete('62cf1fc6498565d94eba52cd');
+
+    expect(result).to.be.equal(deletedMock)
   });
   
 });

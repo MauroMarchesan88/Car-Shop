@@ -10,6 +10,7 @@ describe('Testes da camada Model', () => {
 
   before(async () => {
     sinon.stub(Model, 'create').resolves(carMockWithId);
+    sinon.stub(Model, 'find').resolves([carMockWithId]);
     sinon.stub(Model, 'findOne').resolves(carMockWithId);
   });
 
@@ -19,6 +20,18 @@ describe('Testes da camada Model', () => {
 
   it('Verifica função Create', async () => {
     const result = await modelTest.create(carMock);
+
+    expect(result).to.be.equal(carMockWithId)
+  });
+
+  it('Verifica função read', async () => {
+    const result = await modelTest.read();
+
+    expect(result).to.be.deep.equal([carMockWithId])
+  });
+
+  it('Verifica função readOne', async () => {
+    const result = await modelTest.readOne('62cf1fc6498565d94eba52cd');
 
     expect(result).to.be.equal(carMockWithId)
   });
