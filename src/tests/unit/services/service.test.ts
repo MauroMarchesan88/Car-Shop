@@ -14,8 +14,8 @@ describe('Teste de camada Service', () => {
     sinon.stub(modelTest, 'create').resolves(carMockWithId);
     sinon.stub(modelTest, 'read').resolves([carMockWithId]);
     sinon.stub(modelTest, 'readOne').resolves(carMockWithId);
+    sinon.stub(modelTest, 'update').resolves(carMockWithId);
     sinon.stub(modelTest, 'delete').resolves(deletedMock);
-
   });
 
   after(()=>{
@@ -36,6 +36,12 @@ describe('Teste de camada Service', () => {
 
   it('Verifica função readOne', async () => {
     const result = await serviceTest.readOne('62cf1fc6498565d94eba52cd');
+
+    expect(result).to.be.equal(carMockWithId)
+  });
+
+  it('Verifica função update', async () => {
+    const result = await serviceTest.update('62cf1fc6498565d94eba52cd', carMock);
 
     expect(result).to.be.equal(carMockWithId)
   });

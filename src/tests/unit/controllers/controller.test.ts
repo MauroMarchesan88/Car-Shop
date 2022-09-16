@@ -19,6 +19,8 @@ describe('Teste de camada Controller', () => {
     sinon.stub(serviceTest, 'create').resolves(carMock);
     sinon.stub(serviceTest, 'read').resolves([carMockWithId]);
     sinon.stub(serviceTest, 'readOne').resolves(carMockWithId);
+    sinon.stub(serviceTest, 'update').resolves(carMockWithId);
+    sinon.stub(serviceTest, 'delete').resolves(carMockWithId);
 
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns(res);
@@ -50,6 +52,25 @@ describe('Teste de camada Controller', () => {
     await controllerTest.readOne(req, res);
 
     expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
+    expect((res.json as sinon.SinonStub).calledWith(carMock)).to.be.true;
+  });
+
+  it('Verifica função update', async () => {
+    req.params = { id: carMockWithId._id };
+    req.body = carMock;
+
+    await controllerTest.update(req, res);
+
+    expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
+    expect((res.json as sinon.SinonStub).calledWith(carMock)).to.be.true;
+  });
+
+  it('Verifica função delete', async () => {
+    req.params = { id: carMockWithId._id };
+
+    await controllerTest.delete(req, res);
+
+    expect((res.status as sinon.SinonStub).calledWith(204)).to.be.true;
     expect((res.json as sinon.SinonStub).calledWith(carMock)).to.be.true;
   });
 });
