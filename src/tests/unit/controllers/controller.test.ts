@@ -6,10 +6,11 @@ import CarService from '../../../services/CarService';
 import CarController from '../../../controllers/CarController';
 import { carMock, carMockWithId } from '../mocks/carMock';
 import { Request, Response } from 'express';
+import { CarWtihVehicleSchema } from '../../../interfaces/ICar';
 
 describe('Teste de camada Controller', () => {
   const modelTest = new CarModel();
-  const serviceTest = new CarService(modelTest);
+  const serviceTest = new CarService(modelTest, CarWtihVehicleSchema);
   const controllerTest = new CarController(serviceTest);
   const req = {} as Request;
   const res = {} as Response;

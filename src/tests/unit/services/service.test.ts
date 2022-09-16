@@ -4,10 +4,11 @@ const { expect } = chai;
 import CarModel from '../../../models/CarModel';
 import CarService from '../../../services/CarService';
 import { carMock, carMockWithId, deletedMock } from '../mocks/carMock';
+import { CarWtihVehicleSchema } from '../../../interfaces/ICar';
 
 describe('Teste de camada Service', () => {
   const modelTest = new CarModel();
-  const serviceTest = new CarService(modelTest);
+  const serviceTest = new CarService(modelTest, CarWtihVehicleSchema);
 
   before(async () => {
     sinon.stub(modelTest, 'create').resolves(carMockWithId);
