@@ -7,7 +7,7 @@ const BikeZodSchema = z.object({
     required_error: 'engineCapacity is required',
     invalid_type_error: 'engineCapacity must be a number',
   }).gt(0, { message: 'engineCapacity must be 0 or higher' })
-    .lte(2500, { message: 'engineCapacity must be lower than 7' })
+    .lte(2500, { message: 'engineCapacity must be lower than 2500' })
     .int(),
 });
 
